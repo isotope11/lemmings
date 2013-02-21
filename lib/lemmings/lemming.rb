@@ -17,8 +17,32 @@ module Lemmings
       # Odd this happens to be half the width and height of the screen.
       # How does the lemming know about this? Oh thats right it doesn't.
       # Iterate :)
-      @topleft = [ 320 + 100 * Math.sin(@angle),
-                   240 - 100 * Math.cos(@angle)]
+      self.x = 320 + 100 * Math.sin(@angle)
+      self.y = 240 - 100 * Math.cos(@angle)
+    end
+
+    def move_right
+      self.x = x + 1
+    end
+
+    def move_left
+      self.x = x - 1
+    end
+
+    def x
+      @topleft[0]
+    end
+
+    def y
+      @topleft[1]
+    end
+
+    def x=(val)
+      @topleft[0] = val
+    end
+
+    def y=(val)
+      @topleft[1] = val
     end
   end
 end
