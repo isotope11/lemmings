@@ -2,13 +2,32 @@ PATH
   remote: .
   specs:
     lemmings (0.0.1)
+      celluloid
 
 GEM
   remote: http://rubygems.org/
   specs:
+    ansi (1.4.3)
+    celluloid (0.12.4)
+      facter (>= 1.6.12)
+      timers (>= 1.0.0)
+    facter (1.6.17)
+    metaclass (0.0.1)
+    minitest (4.6.1)
+    minitest-matchers (1.2.0)
+      minitest (>= 2.5.0)
+    mocha (0.13.2)
+      metaclass (~> 0.0.1)
+    timers (1.1.0)
+    turn (0.9.6)
+      ansi
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   lemmings!
+  minitest
+  minitest-matchers
+  mocha
+  turn
