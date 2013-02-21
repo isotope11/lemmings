@@ -14,6 +14,9 @@ module Lemmings
       # The objects make one orbit every 4 seconds
       @angle = ( @angle + 2*Math::PI / 4 * seconds_passed) % ( 2*Math::PI)
 
+      # Odd this happens to be half the width and height of the screen.
+      # How does the lemming know about this? Oh thats right it doesn't.
+      # Iterate :)
       @topleft = [ 320 + 100 * Math.sin(@angle),
                    240 - 100 * Math.cos(@angle)]
     end
