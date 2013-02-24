@@ -31,7 +31,7 @@ module Lemmings
     end
 
     def tick
-      walk_forward!
+      walk_forward
     end
 
     def walk_forward
