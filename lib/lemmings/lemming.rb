@@ -4,7 +4,8 @@ module Lemmings
 
     attr_accessor :topleft # Lol this needs to not be leaking here or something
 
-    def initialize
+    def initialize(world)
+      @world = world
       @angle = 2*Math::PI * rand
       @topleft = [0, 0]
     end
@@ -22,27 +23,25 @@ module Lemmings
     end
 
     def move_right
-      self.x = x + 1
+      @world.move_right(Actor.current)
     end
 
     def move_left
-      self.x = x - 1
+      @world.move_left(Actor.current)
     end
 
     def x
-      @topleft[0]
+      position[0]
     end
 
     def y
-      @topleft[1]
+      position[1]
     end
 
-    def x=(val)
-      @topleft[0] = val
+    private
+    def position
+      @world.position_for(Actor.current)
     end
 
-    def y=(val)
-      @topleft[1] = val
-    end
   end
 end
