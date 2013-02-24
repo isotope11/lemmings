@@ -8,14 +8,23 @@ describe Lemming do
     subject.must_be_kind_of Lemming
   end
 
-  it "can move right" do
-    world.expects(:move_right).with(subject)
-    subject.move_right
+  it "knows its direction" do
+    subject.direction.must_equal :right
   end
 
-  it "can move left" do
+  it "can change direction" do
+    subject.change_direction
+    subject.direction.must_equal :left
+    subject.change_direction
+    subject.direction.must_equal :right
+  end
+
+  it "requests to be moved by the world when walking forward" do
+    world.expects(:move_right).with(subject)
+    subject.walk_forward
+    subject.change_direction
     world.expects(:move_left).with(subject)
-    subject.move_left
+    subject.walk_forward
   end
 
   it "knows its x coordinate" do

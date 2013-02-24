@@ -2,12 +2,12 @@ module Lemmings
   class Lemming
     include Celluloid
 
-    attr_accessor :topleft # Lol this needs to not be leaking here or something
+    attr_reader :direction
 
     def initialize(world)
       @world = world
-      @angle = 2*Math::PI * rand
-      @topleft = [0, 0]
+      @angle = 2 * Math::PI * rand
+      @direction = :right
     end
 
     def update(seconds_passed)
@@ -22,14 +22,6 @@ module Lemmings
       self.y = 240 - 100 * Math.cos(@angle)
     end
 
-    def move_right
-      @world.move_right(Actor.current)
-    end
-
-    def move_left
-      @world.move_left(Actor.current)
-    end
-
     def x
       position[0]
     end
@@ -38,10 +30,21 @@ module Lemmings
       position[1]
     end
 
+    def tick
+      walk_forward!
+    end
+
+    def walk_forward
+      @world.public_send("move_#{direction}", Actor.current)
+    end
+
+    def change_direction
+      @direction = (@direction == :right) ? :left : :right
+    end
+
     private
     def position
       @world.position_for(Actor.current)
     end
-
   end
 end
