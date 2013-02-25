@@ -37,7 +37,7 @@ module Lemmings
       @world.public_send("move_#{direction}", Actor.current)
     end
 
-    def change_direction
+    def turn_around
       @direction = (@direction == :right) ? :left : :right
     end
 

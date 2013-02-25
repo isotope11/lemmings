@@ -12,17 +12,17 @@ describe Lemming do
     subject.direction.must_equal :right
   end
 
-  it "can change direction" do
-    subject.change_direction
+  it "can turn around" do
+    subject.turn_around
     subject.direction.must_equal :left
-    subject.change_direction
+    subject.turn_around
     subject.direction.must_equal :right
   end
 
   it "requests to be moved by the world when walking forward" do
     world.expects(:move_right).with(subject)
     subject.walk_forward
-    subject.change_direction
+    subject.turn_around
     world.expects(:move_left).with(subject)
     subject.walk_forward
   end

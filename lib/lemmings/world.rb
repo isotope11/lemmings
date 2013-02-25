@@ -41,6 +41,9 @@ module Lemmings
     end
 
     def move_left(object)
+      current_position = position_for(object)
+      objects_at(*current_position).delete(object)
+      add_object(object, current_position[0] - 1, current_position[1])
     end
 
     private

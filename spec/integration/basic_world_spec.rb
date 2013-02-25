@@ -9,5 +9,8 @@ describe "A basic world simulation" do
     lemming.walk_forward
     lemming.walk_forward
     lemming.x.must_equal 2
+    lemming.turn_around
+    lemming.walk_forward
+    lemming.x.must_equal 1
   end
 end
