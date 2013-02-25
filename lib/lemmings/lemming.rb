@@ -33,6 +33,10 @@ module Lemmings
       walk_forward
     end
 
+    def start_timer
+      every(0.02){ tick }
+    end
+
     def walk_forward
       @world.public_send("move_#{direction}", Actor.current)
     rescue World::OutOfBoundsError
