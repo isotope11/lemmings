@@ -52,10 +52,9 @@ module Lemmings
     end
 
     def cell_at_position(position)
-      raise OutOfBoundsError if position.y < 0
-      raise OutOfBoundsError if position.x < 0
+      raise OutOfBoundsError if position.y < 0 || position.x < 0
       cell = @rows[position.y][position.x]
-      raise OutOfBoundsError if !cell
+      raise OutOfBoundsError unless cell
       cell
     end
 
