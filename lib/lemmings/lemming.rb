@@ -6,7 +6,6 @@ module Lemmings
 
     def initialize(world)
       @world = world
-      @angle = 2 * Math::PI * rand
       @direction = :right
     end
 
