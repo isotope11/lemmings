@@ -28,12 +28,21 @@ describe Lemming do
   end
 
   it "knows its x coordinate" do
-    world.expects(:position_for).with(subject).returns([1, 2])
+    world.expects(:position_for).with(subject).returns(World::Position.new(x=1, y=2))
     subject.x.must_equal 1
   end
 
   it "knows its y coordinate" do
-    world.expects(:position_for).with(subject).returns([1, 2])
+    world.expects(:position_for).with(subject).returns(World::Position.new(x=1, y=2))
     subject.y.must_equal 2
+  end
+
+  #NOTE: Temporary
+  it "turns around if there was an OutOfBoundsError" do
+    def world.move_right(*args)
+      raise Lemmings::World::OutOfBoundsError
+    end
+    subject.walk_forward
+    subject.direction.must_equal :left
   end
 end

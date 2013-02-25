@@ -1,5 +1,6 @@
 module Lemmings
   class World
+    class OutOfBoundsError < StandardError; end
     def initialize(width, height)
       @rows = []
       height.times do
@@ -45,22 +46,28 @@ module Lemmings
     private
     def move_to_the(position_term, object)
       current_position = position_for(object)
+      new_position = current_position.public_send(position_term)
+      add_object(object, new_position)
       objects_at(current_position).delete(object)
-      add_object(object, current_position.public_send(position_term))
     end
 
     def cell_at_position(position)
-      @rows[position.y][position.x]
+      raise OutOfBoundsError if position.y < 0
+      raise OutOfBoundsError if position.x < 0
+      cell = @rows[position.y][position.x]
+      raise OutOfBoundsError if !cell
+      cell
     end
 
     def positions
+      return @positions if @positions
       pos = []
       (0..height-1).each do |y|
         (0..width-1).each do |x|
           pos << Position.new(x, y)
         end
       end
-      pos
+      @positions = pos
     end
 
     class Position < Struct.new(:x, :y)

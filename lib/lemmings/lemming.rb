@@ -22,11 +22,11 @@ module Lemmings
     end
 
     def x
-      position[0]
+      position.x
     end
 
     def y
-      position[1]
+      position.y
     end
 
     def tick
@@ -35,6 +35,8 @@ module Lemmings
 
     def walk_forward
       @world.public_send("move_#{direction}", Actor.current)
+    rescue World::OutOfBoundsError
+      turn_around
     end
 
     def turn_around
