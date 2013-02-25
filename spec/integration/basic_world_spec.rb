@@ -7,6 +7,7 @@ describe "A basic world simulation" do
     world.add_object(lemming, 0, 0)
     world.objects_at(0, 0).must_equal([lemming])
     lemming.walk_forward
-    #lemming.walk_forward
+    lemming.walk_forward
+    lemming.x.must_equal 2
   end
 end
