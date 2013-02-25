@@ -10,6 +10,7 @@ module Lemmings
         end
         @rows << row
       end
+      @object_positions = {}
     end
 
     def height
@@ -22,6 +23,7 @@ module Lemmings
 
     def add_object(object, position)
       cell_at_position(position) << object
+      @object_positions[object] = position
     end
 
     def objects_at(position)
@@ -29,10 +31,7 @@ module Lemmings
     end
 
     def position_for(object)
-      # LOL SO INEFFICIENT
-      positions.detect do |p|
-        objects_at(p).include?(object)
-      end
+      @object_positions[object]
     end
 
     def move_right(object)
@@ -49,6 +48,7 @@ module Lemmings
       new_position = current_position.public_send(position_term)
       add_object(object, new_position)
       objects_at(current_position).delete(object)
+      @object_positions[object] = new_position
     end
 
     def cell_at_position(position)
@@ -64,27 +64,33 @@ module Lemmings
       pos = []
       (0..height-1).each do |y|
         (0..width-1).each do |x|
-          pos << Position.new(x, y)
+          pos << Position.new(x: x, y: y)
         end
       end
       @positions = pos
     end
 
-    class Position < Struct.new(:x, :y)
+    class Position
+      attr_reader :x, :y
+      def initialize(x: x, y: y)
+        @x = x
+        @y = y
+      end
+
       def north
-        Position.new(x=self.x, y=self.y-1)
+        Position.new(x:self.x, y:self.y-1)
       end
 
       def south
-        Position.new(x=self.x, y=self.y+1)
+        Position.new(x:self.x, y:self.y+1)
       end
 
       def east
-        Position.new(x=self.x+1, y=self.y)
+        Position.new(x:self.x+1, y:self.y)
       end
 
       def west
-        Position.new(x=self.x-1, y=self.y)
+        Position.new(x:self.x-1, y:self.y)
       end
     end
   end

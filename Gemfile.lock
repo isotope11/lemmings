@@ -25,6 +25,7 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
     rake (10.0.3)
+    ruby-prof (0.12.2)
     slop (3.4.3)
     timers (1.1.0)
     turn (0.9.6)
@@ -40,4 +41,5 @@ DEPENDENCIES
   mocha
   pry
   rake
+  ruby-prof
   turn

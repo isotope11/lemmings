@@ -28,12 +28,12 @@ describe Lemming do
   end
 
   it "knows its x coordinate" do
-    world.expects(:position_for).with(subject).returns(World::Position.new(x=1, y=2))
+    world.expects(:position_for).with(subject).returns(World::Position.new(x: 1, y: 2))
     subject.x.must_equal 1
   end
 
   it "knows its y coordinate" do
-    world.expects(:position_for).with(subject).returns(World::Position.new(x=1, y=2))
+    world.expects(:position_for).with(subject).returns(World::Position.new(x: 1, y: 2))
     subject.y.must_equal 2
   end
 

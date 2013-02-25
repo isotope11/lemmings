@@ -14,14 +14,14 @@ describe World do
 
   it "can have an object added at specified coordinates" do
     mock_object = mock
-    position = World::Position.new(x=10, y=12)
+    position = World::Position.new(x:10, y:12)
     subject.add_object(mock_object, position)
     subject.objects_at(position).must_equal [mock_object]
   end
 
   describe "object positions" do
     let(:mock_object){ mock }
-    let(:position){ World::Position.new(x=10, y=20) }
+    let(:position){ World::Position.new(x:10, y:20) }
 
     before do
       subject.add_object(mock_object, position)
