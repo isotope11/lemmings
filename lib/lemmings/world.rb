@@ -1,6 +1,8 @@
 module Lemmings
   class World
     class OutOfBoundsError < StandardError; end
+    attr_accessor :winning_lemmings
+
     def initialize(width, height)
       @rows = []
       height.times do
@@ -11,6 +13,9 @@ module Lemmings
         @rows << row
       end
       @object_positions = {}
+      @winning_lemmings = 1000
+      @exited_lemmings = 0
+      @exit = nil
     end
 
     def height
@@ -42,13 +47,35 @@ module Lemmings
       move_to_the(:west, object)
     end
 
+    def lemming_exited!
+      @exited_lemmings += 1
+    end
+
+    def win?
+      @exited_lemmings >= winning_lemmings
+    end
+
+    def exit_at(position)
+      @exit = position
+    end
+
     private
     def move_to_the(position_term, object)
       current_position = position_for(object)
       new_position = current_position.public_send(position_term)
+      check_for_exit(new_position) if object.is_a?(Lemming)
       add_object(object, new_position)
       objects_at(current_position).delete(object)
       @object_positions[object] = new_position
+    end
+
+    def check_for_exit(new_position)
+      if new_position == @exit
+        lemming_exited!
+        true
+      else
+        false
+      end
     end
 
     def cell_at_position(position)
@@ -90,6 +117,11 @@ module Lemmings
 
       def west
         Position.new(x:self.x-1, y:self.y)
+      end
+
+      def ==(other)
+        return false if other.nil?
+        self.x == other.x && self.y == other.y
       end
     end
   end

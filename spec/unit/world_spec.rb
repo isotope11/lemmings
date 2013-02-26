@@ -37,4 +37,26 @@ describe World do
       subject.objects_at(position.east).must_equal([mock_object])
     end
   end
+
+  describe "winning" do
+    it "can have winning_lemmings set" do
+      subject.winning_lemmings = 2
+      subject.winning_lemmings.must_equal 2
+    end
+
+    it "wins if exited_lemmings >= winning_lemmings" do
+      subject.winning_lemmings = 3
+      subject.lemming_exited!
+      subject.lemming_exited!
+      subject.lemming_exited!
+      subject.win?.must_equal true
+    end
+  end
+
+  describe "setting an exit" do
+    it "can have an exit declared with a position" do
+      position = World::Position.new(x: 5, y: 7)
+      subject.exit_at(position)
+    end
+  end
 end
